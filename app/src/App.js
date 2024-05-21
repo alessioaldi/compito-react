@@ -42,8 +42,8 @@ function App() {
     })
     const rispostaJson = await response.json();
     setToken(rispostaJson.token);
-    if(token!==""){
-      const response = await fetch("http://localhost:8080/user/"+token,{method: "GET"})
+    if(rispostaJson.token!=""){
+      const response = await fetch("http://localhost:8080/user/"+rispostaJson.token,{method: "GET"})
       const risposta = await response.json();
       setID(risposta.id);
       setRegister_date(risposta.reg_date);
@@ -51,6 +51,7 @@ function App() {
       setLogError(false)
       mostraLog(false);
       setEmail(risposta.email);
+      
     } else{
       setLogError(true);
     }
@@ -71,6 +72,16 @@ function App() {
   function reset(){
     mostraDati(false);
     setToken("");
+  }
+
+  function formReg(){
+    mostraReg(true);
+    mostraLog(false);
+  }
+
+  function formLog(){
+    mostraReg(false);
+    mostraLog(true);
   }
 
   return (
@@ -103,7 +114,7 @@ function App() {
           </div>
         :
 
-        <button onClick={()=>mostraReg(true)}>registrati</button>
+        <button onClick={formReg}>registrati</button>
       }
 
       { log ?
@@ -119,7 +130,7 @@ function App() {
           </div>
         :
 
-        <button onClick={()=>mostraLog(true)}>login</button>
+        <button onClick={formLog}>login</button>
       }
 
       { aggiunto &&
