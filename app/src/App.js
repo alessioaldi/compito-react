@@ -25,7 +25,7 @@ function App() {
     });
     const rispostaJson = await response.json();
     setAggiunto(rispostaJson.status);
-    if(aggiunto===false){
+    if(!rispostaJson.status){
       setRegError(true);
     } else{
       setRegError(false);
@@ -48,7 +48,7 @@ function App() {
       setID(risposta.id);
       setRegister_date(risposta.reg_date);
       mostraDati(true);
-      setLogError(true)
+      setLogError(false)
       mostraLog(false);
       setEmail(risposta.email);
     } else{
@@ -93,7 +93,7 @@ function App() {
           <div>
             <input type='email' placeholder='email' onChange={handleEmail}></input>
             <input type='text' placeholder='username' onChange={handleUser}></input>
-            <input type='password' placeholder='password' ></input>
+            <input type='password' placeholder='password' onChange={handlePass}></input>
             <button onClick={()=>registra()}>registra</button>
             { regError &&
               <>
